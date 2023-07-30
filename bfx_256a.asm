@@ -6,16 +6,16 @@
        ; PALLETTE
         xor cl, cl
         pallette_loop:
-        mov dx, 3C8h      ; Indexregister für Farbpalette (0x3C8)
-        mov al, cl        ; Schreibe Farbindex in das Datenregister
-        out dx, al        ; Schreibe Farbindex in das Indexregister
+        mov dx, 3C8h      ; Indexregister for color palette (0x3C8)
+        mov al, cl        
+        out dx, al        ; init color for redefine
         inc dx 
-        out dx, al
-        shr al, 1         ; Teile Farbindex durch 2
-        out dx, al
-        shr al, 1         ; Teile Farbindex durch 2
-        out dx, al
-        loop pallette_loop ; noch mehr Farben, dann weiterer loop        
+        out dx, al        ; red = counter
+        shr al, 1         
+        out dx, al        ; green = red >> 1
+        shr al, 1         
+        out dx, al        ; blue = green >> 1
+        loop pallette_loop
 
     game_loop:
 
@@ -113,7 +113,7 @@
         cmp di, 44960
         jl loop_y
 
-	; Retrace? then ESC PRESSED?
+	; Wait until Retrace
     WaitForNextFrame:
         inc si
         and si, 1023
@@ -129,9 +129,9 @@
         jz WaitVSync
     
     wait_for_esc:
-        in al, 60h       ; Lese den Scan-Code der Tastatureingabe
-        dec al        ; Vergleiche mit dem Wert für ESC-Taste
-        jnz game_loop     ; Springe zu "found_esc", wenn ESC gedrückt wurde
+        in al, 60h       ; read scan code from keyboard
+        dec al           ; == 1 ?
+        jnz game_loop    
 
     found_esc:
 	      ; exit
