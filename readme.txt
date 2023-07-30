@@ -8,5 +8,8 @@ Effects: RotoZoom, Plasma, Motion Blur, Fire, Custom Palette
 Coder/Group: Plex/BionFX
 Artist/Group: Imagician/BionFX
 
+Build: `nasm -f bin -o bfx_256a.com bfx_256a.asm`
+Run: in Dosbox ( https://www.dosbox.com/ ) with the supplied config
+
 ----------------------------------------------------------------------
 Source published on https://github.com/Plexcalibur/256b_coding_roots_nostalgia
